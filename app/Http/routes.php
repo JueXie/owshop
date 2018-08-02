@@ -12,10 +12,7 @@ use App\Entity\Member;
 |
 */
 
-Route::get('/', function () {
-//    return view('welcome');
-    return view('front.index');
-});
+Route::get('/', 'View\CategoryController@toIndex');
 
 
 
@@ -23,6 +20,7 @@ Route::get('/', function () {
 Route::any('service/validate_code/create', 'Service\ValidateController@create');
 Route::post('service/validate_phone/send', 'Service\ValidateController@sendSMS');
 Route::post('service/register', 'Service\MemberController@register');
+Route::post('service/login', 'Service\MemberController@login');
 
 
 Route::get('/login', 'View\MemberController@toLogin');

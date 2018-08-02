@@ -117,12 +117,6 @@
         <p class="copyright">
             &copy 2005-2018 鑫欧威商城 版权所有，并保留所有权利。  ICP备案证书号:粤ICP备18041343号
         </p>
-        <p class="auth">
-            <a href=""><img src="/front/images/xin.png" alt="" /></a>
-            <a href=""><img src="/front/images/kexin.jpg" alt="" /></a>
-            <a href=""><img src="/front/images/police.jpg" alt="" /></a>
-            <a href=""><img src="/front/images/beian.gif" alt="" /></a>
-        </p>
     </div>
     <!-- 底部版权 end -->
 @endsection

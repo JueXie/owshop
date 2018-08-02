@@ -43,7 +43,7 @@ class MemberController extends Controller
                 $jp_result->message = '手机验证码为4位';
                 return $jp_result->toJson();
             }
-            $tempPhone = TempPhone::where('phone', $phone)->orderBy('id', 'desc')->first();
+            $tempPhone = TempPhone::where('phone', $phone)->first();
             if($tempPhone->phone_code == $phone_code) {
                 if (time() > strtotime($tempPhone->deadline)) {
                     $jp_result->status = 7;
@@ -70,5 +70,39 @@ class MemberController extends Controller
             return $jp_result->toJson();
         }
 //        DB::table('member') ->insert(['nickname'=>$nickname,'password'=>$password,'phone'=>$phone]);
+    }
+
+    public function login(Request $request){
+        $nickname = $request->get('nickname','');
+        $password = $request->get('password','');
+        $validate_code = $request->get('validate_code','');
+
+        $jp_result = new M3Result();
+
+
+        //判断验证码
+        $validate_code_session = $request->session()->get('validate_code');
+        if ($validate_code != $validate_code_session){
+            $jp_result->status = 8;
+            $jp_result->message = '验证码不正确';
+            return $jp_result->toJson();
+        }
+        $member = Member::where('nickname',$nickname)->first();
+        if ($member == null){
+            $jp_result->status = 9;
+            $jp_result->message = '该用户不存在';
+            return $jp_result->toJson();
+        }else{
+            if (md5($password) != $member->password) {
+                $jp_result->status = 11;
+                $jp_result->message = '密码不正确';
+                return $jp_result->toJson();
+            }
+        }
+        $request->session()->put('member',$member);
+        $jp_result->status = 0;
+        $jp_result->message = '登陆成功';
+        return $jp_result->toJson();
+
     }
 }

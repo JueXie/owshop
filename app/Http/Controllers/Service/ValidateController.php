@@ -12,8 +12,9 @@ use App\Models\M3Result;
 
 class ValidateController extends Controller
 {
-    public function create($value=''){
+    public function create(Request $request){
         $validateCode = new ValidateCode();
+        $request->session()->put('validate_code',$validateCode->getCode());
         return $validateCode->doimg();
     }
 
@@ -35,10 +36,13 @@ class ValidateController extends Controller
         for ($i = 0;$i < 4;++$i) {
             $code .= $charset[mt_rand(0, $_len)];
         }
-        $sendTemplateSMS->sendTemplateSMS($phone,array('0555',5),1);
+        $sendTemplateSMS->sendTemplateSMS($phone,array($code,5),1);
 
         //新建临时手机验证码表的模型对象，存储数据
-        $temp_phone = new TempPhone;
+        $temp_phone = TempPhone::where('phone',$phone)->first();
+        if ($temp_phone == null){
+            $temp_phone = new TempPhone;
+        }
         $temp_phone->phone = $phone;
         $temp_phone->phone_code = $code;
         $temp_phone->deadline = date('Y-m-d H-i-s',time() + 5*60);

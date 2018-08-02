@@ -44,11 +44,12 @@
         </div>
         <div class="login_bd">
             <div class="login_form fl">
-                <form action="" method="post">
+                <form action="service/login" method="post">
+
                     <ul>
-                        <li>
+                        <li>{{ csrf_field() }}
                             <label for="">用户名：</label>
-                            <input type="text" class="txt" name="username" placeholder="输入用户名/邮箱/手机号" />
+                            <input type="text" class="txt" name="nickname" placeholder="输入用户名" />
                         </li>
                         <li>
                             <label for="">密码：</label>
@@ -57,7 +58,7 @@
                         </li>
                         <li class="checkcode">
                             <label for="">验证码：</label>
-                            <input type="text"  name="checkcode" />
+                            <input type="text"  name="validate_code" />
                             <img src="service/validate_code/create" alt="" />
                             <span>看不清？<a href="">换一张</a></span>
                         </li>
@@ -116,13 +117,29 @@
         <p class="copyright">
             &copy 2005-2013 鑫欧威商城 版权所有，并保留所有权利。  ICP备案证书号:粤ICP备18041343号
         </p>
-        <p class="auth">
-            <a href=""><img src="/front/images/xin.png" alt="" /></a>
-            <a href=""><img src="/front/images/kexin.jpg" alt="" /></a>
-            <a href=""><img src="/front/images/police.jpg" alt="" /></a>
-            <a href=""><img src="/front/images/beian.gif" alt="" /></a>
-        </p>
     </div>
     <!-- 底部版权 end -->
+
+@endsection
+
+
+
+@section('my-js')
+    <script type="text/javascript">
+
+        $('login_btn').click(function(event){
+            var nickname = $('input[name=nickname]').val();
+            var password = $('input[name=password]').val();
+            var validate_code = $('input[name=validate_code]').val();
+            $.ajax({
+                url:'/service/login',
+                dataType:'json',
+                cache:false,
+                type:'POST',
+                data:{nickname:nickname,password:password,validate_code:validate_code,_token:'{{csrf_token()}}'},
+            });
+        });
+
+    </script>
 
 @endsection
