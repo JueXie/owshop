@@ -9,10 +9,5 @@ use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
-    public function toIndex(){
 
-        $categorys = Category::whereNull('parent_id')->get();
-
-        return view('front.index')->with('categorys',$categorys);
-    }
 }

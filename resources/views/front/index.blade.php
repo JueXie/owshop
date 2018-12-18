@@ -10,7 +10,7 @@
             </div>
             <div class="topnav_right fr">
                 <ul>
-                    <li>您好，欢迎来到京西！[<a href="login">登录</a>] [<a href="register">免费注册</a>] </li>
+                    <li>您好，欢迎！[<a href="login">登录</a>] [<a href="register">免费注册</a>] </li>
                     <li class="line">|</li>
                     <li>我的订单</li>
                     <li class="line">|</li>
@@ -28,7 +28,7 @@
     <div class="header w1210 bc mt15">
         <!-- 头部上半部分 start 包括 logo、搜索、用户中心和购物车结算 -->
         <div class="logo w1210">
-            <h1 class="fl"><a href="index.html"><img src="/front/images/logo.png" alt="京西商城"></a></h1>
+            <h1 class="fl"><a href="/"><img src="/front/images/logo.png" alt="京西商城"></a></h1>
             <!-- 头部搜索 start -->
             <div class="search fl">
                 <div class="search_form">
@@ -126,8 +126,7 @@
 
                     @foreach($categorys as $category)
                             <div class="cat item1">
-                                <h3><a href="">{{ $category->name }}</a><b></b></h3>
-
+                                <h3><a href="" class="{{$category->id}}">{{ $category->name }}</a><b></b></h3>
                                 <div class="cat_detail">
                                     <dl class="dl_1st">
                                         <dd>
@@ -1060,28 +1059,21 @@
     <!-- 底部版权 start -->
     <div class="footer w1210 bc mt10">
         <p class="links">
-            <a href="">关于我们</a> |
-            <a href="">联系我们</a> |
-            <a href="">人才招聘</a> |
-            <a href="">商家入驻</a> |
-            <a href="">千寻网</a> |
-            <a href="">奢侈品网</a> |
-            <a href="">广告服务</a> |
-            <a href="">移动终端</a> |
-            <a href="">友情链接</a> |
-            <a href="">销售联盟</a> |
-            <a href="">京西论坛</a>
         </p>
         <p class="copyright">
             &copy 2005-2018 鑫欧威商城 版权所有，并保留所有权利。  ICP备案证书号:粤ICP备18041343号
         </p>
         <p class="auth">
-            <a href=""><img src="/front/images/xin.png" alt="" /></a>
-            <a href=""><img src="/front/images/kexin.jpg" alt="" /></a>
-            <a href=""><img src="/front/images/police.jpg" alt="" /></a>
-            <a href=""><img src="/front/images/beian.gif" alt="" /></a>
         </p>
     </div>
     <!-- 底部版权 end -->
+    <div id="demo" class="demo3"></div>
+@endsection
 
+
+@section('my-js')
+    <script>
+       var clsname =  $('cat h3 a').prop("className");
+       console.log(clsname);
+    </script>
 @endsection

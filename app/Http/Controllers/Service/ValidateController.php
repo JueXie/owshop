@@ -54,7 +54,5 @@ class ValidateController extends Controller
         $m3result->message = "发送成功";
 
         return $m3result->toJson() ;
-//        return $temp_phone::all() ;
-
     }
 }

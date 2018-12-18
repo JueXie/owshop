@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Service;
 
+use App\Tool\SQLQuery\SqlQuery;
 use Illuminate\Support\Facades\DB;
 use App\Entity\TempPhone;
 use App\Entity\Member;
@@ -37,7 +38,6 @@ class MemberController extends Controller
         }
 
         if($phone != '') {
-            echo $phone_code;
             if($phone_code == '' || strlen($phone_code) != 4) {
                 $jp_result->status = 5;
                 $jp_result->message = '手机验证码为4位';
@@ -52,7 +52,12 @@ class MemberController extends Controller
                 }
 
 
-
+				$membertest = Member::where('nickname',$nickname)->first();
+				if ($membertest != null){
+					$jp_result->status = 504;
+					$jp_result->message = "用户已存在";
+					return $jp_result->toJson();
+				}
                 //新建member表的模型并保存
                 $member = new Member();
                 $member->nickname = $nickname;
@@ -69,7 +74,6 @@ class MemberController extends Controller
             $jp_result->message = '手机验证码不正确';
             return $jp_result->toJson();
         }
-//        DB::table('member') ->insert(['nickname'=>$nickname,'password'=>$password,'phone'=>$phone]);
     }
 
     public function login(Request $request){
@@ -88,21 +92,70 @@ class MemberController extends Controller
             return $jp_result->toJson();
         }
         $member = Member::where('nickname',$nickname)->first();
-        if ($member == null){
-            $jp_result->status = 9;
-            $jp_result->message = '该用户不存在';
-            return $jp_result->toJson();
-        }else{
-            if (md5($password) != $member->password) {
-                $jp_result->status = 11;
-                $jp_result->message = '密码不正确';
-                return $jp_result->toJson();
-            }
-        }
+	    if ($member == null){
+		    $jp_result->status = 9;
+		    $jp_result->message = '该用户不存在';
+		    return $jp_result->toJson();
+	    }else{
+		    if (md5($password) != $member->password) {
+			    $jp_result->status = 11;
+			    $jp_result->message = '密码不正确';
+			    return $jp_result->toJson();
+		    }
+	    }
         $request->session()->put('member',$member);
         $jp_result->status = 0;
         $jp_result->message = '登陆成功';
         return $jp_result->toJson();
+    }
 
+    public function checkname(Request $request){
+    	$nickname = $request->get('nickname','');
+
+    	$member = Member::where('nickname',$nickname)->first();
+	    $jp_result = new M3Result();
+	    if ($nickname == ''){
+		    $jp_result->status = 8000;
+		    $jp_result->message = '用户存在';
+	    }
+    	if ($member != null){
+    		$jp_result->status = 504;
+		    $jp_result->message = '用户存在';
+		    return $jp_result->toJson();
+	    }else{
+		    $jp_result->status = 0;
+		    $jp_result->message = '可用账户';
+		    return $jp_result->toJson();
+	    }
+    }
+
+    public function checkmember(){
+    	$Memberobj = new SqlQuery();
+    	$allMember = $Memberobj->getAllMember();
+    	return $allMember;
+    }
+
+    public function memberAdd(Request $request){
+	    $nickname = $request->get('nickname','');
+	    $password = $request->get('password','');
+	    $phone = $request->get('phone','');
+
+	    $jp_result = new M3Result();
+	    $membertest = Member::where('nickname',$nickname)->first();
+	    if ($membertest != null){
+		    $jp_result->status = 504;
+		    $jp_result->message = "用户已存在";
+		    return $jp_result->toJson();
+	    }
+	    //新建member表的模型并保存
+	    $member = new Member();
+	    $member->nickname = $nickname;
+	    $member->password = md5($password);
+	    $member->phone = $phone;
+	    $member->save();
+
+	    $jp_result->status = 0;
+	    $jp_result->message = '注册成功,数据库录入成功';
+	    return $jp_result->toJson();
     }
 }

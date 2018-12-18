@@ -9,12 +9,12 @@
     <link rel="stylesheet" href="/front/style/index.css" type="text/css">
     <link rel="stylesheet" href="/front/style/bottomnav.css" type="text/css">
     <link rel="stylesheet" href="/front/style/footer.css" type="text/css">
-    @yield('my-css');
+    @yield('my-css')
 </head>
 <body>
 
 @yield('content')
-
+<div id="tipbar" style="display: none; position: absolute; top: 34px; text-align: center; width: 100%;"> <span style="background: #444444; color: #ffffff; padding: 5px 10px; border-radius: 5px; opacity: 0.9;font-size: 36px"></span></div>
 <script type="text/javascript" src="/front/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="/front/js/header.js"></script>
 <script type="text/javascript" src="/front/js/index.js"></script>
