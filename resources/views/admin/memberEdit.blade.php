@@ -47,9 +47,7 @@
                 type:'POST',
                 data:{nickname:nickname,password:password,phone:phone,_token:'{{csrf_token()}}'},
                 success:function (data) {
-                    layer.msg('添加成功',{icon:1,time:1000});
-                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                    parent.layer.close(index);
+                    window.location.reload();
                 }
             });
         }

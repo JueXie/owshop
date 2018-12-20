@@ -129,12 +129,6 @@ class MemberController extends Controller
 	    }
     }
 
-    public function checkmember(){
-    	$Memberobj = new SqlQuery();
-    	$allMember = $Memberobj->getAllMember();
-    	return $allMember;
-    }
-
     public function memberAdd(Request $request){
 	    $nickname = $request->get('nickname','');
 	    $password = $request->get('password','');
@@ -158,4 +152,46 @@ class MemberController extends Controller
 	    $jp_result->message = '注册成功,数据库录入成功';
 	    return $jp_result->toJson();
     }
+
+    public function deleteMember(Request $request){
+	    $memberId = $request->get('id','');
+	    $member = Member::find($memberId);
+	    $member->delete();
+	    $jp_result = new M3Result();
+	    $jp_result->status = 21312321;
+	    $jp_result->message = '删除成功';
+	    return $jp_result->toJson();
+    }
+
+    public function memberStatus(Request $request){
+	    $memberId = $request->get('id','');
+	    $status = $request->get('status','');
+	    $jp_result = new M3Result();
+	    $member = Member::find($memberId);
+	    if ($status == 0){
+	    	$member->status = 1;
+	    	$member->save();
+	    	$jp_result->status = 10000;
+	    	$jp_result->message = '已禁用';
+	    	return $jp_result->toJson();
+	    }else{
+		    $member->status = 0;
+		    $member->save();
+		    $jp_result->status = 10001;
+		    $jp_result->message = '已开启';
+		    return $jp_result->toJson();
+	    }
+    }
+
+   public function changePassword(Request $request){
+		$password = $request->get('password','');
+		$id = $request->get('id','');
+		$member = Member::find($id);
+		$member->password = md5($password);
+		$member->save();
+		$jp_result = new M3Result();
+		$jp_result->status = 100000;
+		$jp_result->message = '修改成功';
+		return $jp_result->toJson();
+   }
 }

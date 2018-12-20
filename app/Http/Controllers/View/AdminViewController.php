@@ -25,7 +25,24 @@ class AdminViewController extends Controller
 		return view('admin.memberAdd');
 	}
 
-	public function toMemberShow(){
-		return view('admin.memberShow');
+	public function toMemberShow($id){
+		$member = Member::find($id);
+		return view('admin.memberShow')->with('member',$member);
+	}
+	public function toMemberEdit(){
+		return view('admin.memberEdit');
+	}
+	public function toChangePassword($id){
+		$member = Member::find($id);
+		$id = $member->id;
+		$membername	 = $member->nickname;
+		return view('admin.changePassword')->with('membername',$membername)->with('id',$id);
+	}
+
+	public function toCategory(){
+		return view('admin.category');
+	}
+	public function toCategoryAdd(){
+		return view('admin.categoryAdd');
 	}
 }

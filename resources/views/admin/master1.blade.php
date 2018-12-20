@@ -18,19 +18,12 @@
     <link href="/adminasset/lib/Hui-iconfont/1.0.6/iconfont.css" rel="stylesheet" type="text/css" />
     <link href="/adminasset/skin/default/skin.css" rel="stylesheet" type="text/css" id="skin" />
     <link href="/adminasset/css/style.css" rel="stylesheet" type="text/css" />
-
     <title>H-ui.admin v2.3</title>
     <meta name="keywords" content="H-ui.admin v2.3,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
     <meta name="description" content="H-ui.admin v2.3，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
 @yield('content')
-
-    <footer class="footer">
-        <p>感谢jQuery、layer、laypage、Validform、UEditor、My97DatePicker、iconfont、Datatables、WebUploaded、icheck、highcharts、bootstrap-Switch<br>Copyright &copy;2015 H-ui.admin v2.3 All Rights Reserved.<br>
-            本后台系统由<a href="http://www.h-ui.net/" target="_blank" title="H-ui前端框架">H-ui前端框架</a>提供前端技术支持</p>
-    </footer>
-
 <script type="text/javascript" src="/adminasset/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="/adminasset/lib/layer/2.1/layer.js"></script>
 <script type="text/javascript" src="/adminasset/js/H-ui.js"></script>

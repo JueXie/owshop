@@ -17,7 +17,7 @@
                 <dd>
                     <ul>
                         <li><a _href="product-brand.html" data-title="品牌管理" href="javascript:void(0)">品牌管理</a></li>
-                        <li><a _href="product-category.html" data-title="分类管理" href="javascript:void(0)">分类管理</a></li>
+                        <li><a _href="/admin/category" data-title="分类管理" href="javascript:void(0)">分类管理</a></li>
                         <li><a _href="product-list.html" data-title="产品管理" href="javascript:void(0)">产品管理</a></li>
                     </ul>
                 </dd>
