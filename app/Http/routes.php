@@ -27,6 +27,7 @@ Route::group(['prefix'=>'service'],function (){
 	Route::post('login', 'Service\MemberController@login');
 
 	Route::get('checkname','Service\MemberController@checkname');
+	Route::any('upload/{type}', 'Service\UploadController@uploadFile');
 
 
 	//**************************后台service*******************************
