@@ -16,9 +16,8 @@
                 <dt><i class="Hui-iconfont">&#xe620;</i> 产品管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
                 <dd>
                     <ul>
-                        <li><a _href="product-brand.html" data-title="品牌管理" href="javascript:void(0)">品牌管理</a></li>
                         <li><a _href="/admin/category" data-title="分类管理" href="javascript:void(0)">分类管理</a></li>
-                        <li><a _href="product-list.html" data-title="产品管理" href="javascript:void(0)">产品管理</a></li>
+                        <li><a _href="/admin/categorydel" data-title="删除分类" href="javascript:void(0)">已删除的分类</a></li>
                     </ul>
                 </dd>
             </dl>
@@ -55,7 +54,7 @@
                 <dd>
                     <ul>
                         <li><a _href="/admin/memberList" data-title="会员列表" href="javascript:;">会员列表</a></li>
-                        <li><a _href="member-del.html" data-title="删除的会员" href="javascript:;">删除的会员</a></li>
+                        <li><a _href="/admin/memberDel" data-title="删除的会员" href="javascript:;">删除的会员</a></li>
                         <li><a _href="member-level.html" data-title="等级管理" href="javascript:;">等级管理</a></li>
                         <li><a _href="member-scoreoperation.html" data-title="积分管理" href="javascript:;">积分管理</a></li>
                         <li><a _href="member-record-browse.html" data-title="浏览记录" href="javascript:void(0)">浏览记录</a></li>

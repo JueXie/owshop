@@ -1,33 +1,69 @@
 @extends('admin.master1')
 
 @section('content')
-    <div class="pd-20">
-        <form action="" method="post" class="form form-horizontal" id="form-user-add">
-            <div class="row cl">
-                <label class="form-label col-2"><span class="c-red">*</span>分类名称：</label>
-                <div class="formControls col-5">
-                    <input type="text" class="input-text" value="" placeholder="" id="user-name" name="product-category-name">
-                </div>
-                <div class="col-5"> </div>
+    <form class="form form-horizontal" id="form-member-add">
+        <div class="row cl">
+            <label class="form-label col-3"><span class="c-red">*</span>分类名字</label>
+            <div class="formControls col-5">
+                <input type="text" class="input-text" value="" placeholder="" id="name" name="categoryname" datatype="*" nullmsg=分类名不能为空">
             </div>
-            <div class="row cl">
-                <label class="form-label col-2">备注：</label>
-                <div class="formControls col-5">
-                    <textarea name="" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="textarealength(this,100)"></textarea>
-                    <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
-                </div>
-                <div class="col-5"> </div>
+            <div class="col-4"> </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-3"><span class="c-red">*</span>分类排序</label>
+            <div class="formControls col-5">
+                <input type="text" class="input-text" value="" placeholder="" id="no" name="categoryno" datatype="*" nullmsg="分类排序不能为空">
             </div>
-            <div class="row cl">
-                <div class="col-9 col-offset-2">
-                    <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-                </div>
+            <div class="col-4"> </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-3"><span class="c-red">*</span>分类描述</label>
+            <div class="formControls col-5">
+                <input type="textarea" class="input-text" value="" placeholder="" id="description" name="description" datatype="*" nullmsg="分类描述不能为空">
             </div>
-        </form>
-    </div>
+            <div class="col-4"> </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-3"><span class="c-red">*</span>父类名字</label>
+            <div class="formControls col-5">
+                <select class="select" id="parent_id" name="parent_id">
+                    <option value="">无</option>
+                    @foreach($categorys as $category)
+                        <option value="{{$category->id}}">{{$category->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-4"> </div>
+        </div>
+        <div class="row cl">
+            <div class="col-9 col-offset-3">
+                <input class="btn btn-primary radius" value="&nbsp;&nbsp;提交&nbsp;&nbsp;" onclick="onCategoryAdd()">
+            </div>
+        </div>
+    </form>
 @endsection
 
 @section('my-js')
-    <script type="text/javascript" src="/adminasset/lib/icheck/jquery.icheck.min.js"></script>
-    <script type="text/javascript" src="/adminasset/lib/Validform/5.3.2/Validform.min.js"></script>
+    <script type="text/javascript">
+        function onCategoryAdd() {
+            var categoryname = $('input[name=categoryname]').val();
+            var categoryno = $('input[name=categorynno]').val();
+            var description = $('input[name=description]').val();
+            var parent_id = $('select[name=parent_id] option:selected').val();
+            if(categoryname =='' ||categoryno ==''){
+                layer.msg("其中一项为空",{icon:2,time:2000})
+                setTimeout(retrun,2000);
+            }
+            $.ajax({
+                url:'/service/categoryadd',
+                dataType:'json',
+                cache:false,
+                type:'POST',
+                data:{_token:'{{csrf_token()}}',name:categoryname,parent_id:parent_id,categoryno:categoryno,description:description},
+                success:function (data) {
+                    alert(data.status+data.message);
+                }
+            });
+        }
+    </script>
 @endsection

@@ -70,7 +70,6 @@
         }
         function member_stop(obj,id){
             layer.confirm('确认要停用吗？',function(index){
-                layer.msg('已停用!',{icon: 5,time:1000});
                 $.ajax({
                     url:'/service/memberstatus',
                     dataType:'json',
@@ -78,16 +77,22 @@
                     type:'POST',
                     data:{_token:'{{csrf_token()}}',id:id,status:0},
                     success:function (data) {
-                        $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
-                        $(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
-                        $(obj).remove();
+                        layer.msg('已停用!',{icon: 5,time:1000});
+                        // $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
+                        // $(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
+                        // $(obj).remove();
+                        window.location.reload();
+                    },
+                    error:function (xhr,error,status) {
+                        console.log(xhr);
+                        console.log(error);
+                        console.log(status);
                     }
                 });
             });
         }
         function member_start(obj,id){
             layer.confirm('确认要启用吗？',function(index){
-                layer.msg('已启用!',{icon: 6,time:1000});
                 $.ajax({
                     url:'/service/memberstatus',
                     dataType:'json',
@@ -95,9 +100,16 @@
                     type:'POST',
                     data:{_token:'{{csrf_token()}}',id:id,status:1},
                     success:function (data) {
-                        $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,id)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
-                        $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
-                        $(obj).remove();
+                        layer.msg('已启用!',{icon: 6,time:1000});
+                        // $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,id)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
+                        // $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
+                        // $(obj).remove();
+                        window.location.reload();
+                    },
+                    error:function (xhr,error,status) {
+                        console.log(xhr);
+                        console.log(error);
+                        console.log(status);
                     }
                 });
             });
@@ -120,6 +132,7 @@
                     success:function (data) {
                         $(obj).parents("tr").remove();
                         layer.msg('已删除!',{icon:1,time:1000});
+                        window.location.reload();
                     }
                 });
             });

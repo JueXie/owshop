@@ -156,7 +156,8 @@ class MemberController extends Controller
     public function deleteMember(Request $request){
 	    $memberId = $request->get('id','');
 	    $member = Member::find($memberId);
-	    $member->delete();
+	    $member->status = 3;
+	    $member->save();
 	    $jp_result = new M3Result();
 	    $jp_result->status = 21312321;
 	    $jp_result->message = '删除成功';
